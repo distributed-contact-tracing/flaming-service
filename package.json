@@ -1,0 +1,16 @@
+{
+  "name": "flaming-service",
+  "version": "0.1.0",
+  "description": "Firebase backend for Distributed Contact Tracing",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/distributed-contact-tracing/flaming-service.git"
+  },
+  "author": "",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/distributed-contact-tracing/flaming-service/issues"
+  },
+  "homepage": "https://github.com/distributed-contact-tracing/flaming-service#readme"
+}
