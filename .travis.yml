@@ -9,6 +9,9 @@ script:
   - npm --prefix ./functions run lint
   - npm --prefix ./functions run build
 
+before_deploy:
+  - npm -g install firebase-tools
+
 deploy:
   provider: script
   script: bash scripts/deploy_firebase.sh
