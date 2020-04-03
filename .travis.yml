@@ -6,8 +6,8 @@ cache: yarn
 
 script:
   - npm --prefix ./functions install
-  - npm --prefix ./functions lint
-  - npm --prefix ./functions build
+  - npm --prefix ./functions run lint
+  - npm --prefix ./functions run build
 
 deploy:
   provider: script
