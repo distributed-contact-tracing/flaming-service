@@ -9,17 +9,17 @@ script:
   - npm --prefix ./functions lint
   - npm --prefix ./functions build
 
-  deploy:
-    provider: script
-    script: bash scripts/deploy_firebase.sh
-    skip_cleanup: true
-    on:
-      branch: master
+deploy:
+  provider: script
+  script: bash scripts/deploy_firebase.sh
+  skip_cleanup: true
+  on:
+    branch: master
 
 notifications:
   email: false
   slack:
-    secure: "U9qKa2AmzvpUo0PhvseNszN2gdsAo/VQSw0UZ0SnIcs8kDvm9QQcxZl0oSI7a8R0oBLtidcNWlN+zDyjN7ttFNwSCmCFWMAruqMS9qDtPSkrCFMzKpuk63OJCk3ERRjNuDypdgyCDTzizthA6j1D6g8oFdd+6tKJ+zGiAFiMolkMZLBP+Y/UTAoHevgyW1t26LPV6rlf+S64KxcFjCUCZP1YNy9Jp00xNJNg97zB5OA43VX83SWttEewBKI71GcXlslYznAlckeJGQNGodJ0+x1p8IYGGu8kmvHJwTYrd/9mAN13DuiEyjbdnibyZTHPALnAhKDtVMvMtbRvoO0NP1nQbwY805bfvLzvrg/kZUycQogdzxwDypbqTQYRVVNk538XPNE9mMDA1wQQeAyZUyeGrcNC11AosVR79Q4hF9PlqmyGaf8OhgkZjtsPArv6D4fHuUgytl9tpjvo9I6T+U7vJCmVe8qskrXmZvOCxsimK3BQCQ0E+YiiruSE3uI1F6fae8famGIR1VXS+7Qj3pcc3LZERr2AH3o8967mlmUiBrMPoqhyoKbTA57hVQuhC7rxDSe8/3ELTtxeuBuTFE5avEuG1v9QWeTludVnZT+/V9xOVwboS/z8qEcSA+b5us/egDopTfAOZUqtesXWdDbhNJ4c9AHkIXuQapiZyms="
+    secure: U9qKa2AmzvpUo0PhvseNszN2gdsAo/VQSw0UZ0SnIcs8kDvm9QQcxZl0oSI7a8R0oBLtidcNWlN+zDyjN7ttFNwSCmCFWMAruqMS9qDtPSkrCFMzKpuk63OJCk3ERRjNuDypdgyCDTzizthA6j1D6g8oFdd+6tKJ+zGiAFiMolkMZLBP+Y/UTAoHevgyW1t26LPV6rlf+S64KxcFjCUCZP1YNy9Jp00xNJNg97zB5OA43VX83SWttEewBKI71GcXlslYznAlckeJGQNGodJ0+x1p8IYGGu8kmvHJwTYrd/9mAN13DuiEyjbdnibyZTHPALnAhKDtVMvMtbRvoO0NP1nQbwY805bfvLzvrg/kZUycQogdzxwDypbqTQYRVVNk538XPNE9mMDA1wQQeAyZUyeGrcNC11AosVR79Q4hF9PlqmyGaf8OhgkZjtsPArv6D4fHuUgytl9tpjvo9I6T+U7vJCmVe8qskrXmZvOCxsimK3BQCQ0E+YiiruSE3uI1F6fae8famGIR1VXS+7Qj3pcc3LZERr2AH3o8967mlmUiBrMPoqhyoKbTA57hVQuhC7rxDSe8/3ELTtxeuBuTFE5avEuG1v9QWeTludVnZT+/V9xOVwboS/z8qEcSA+b5us/egDopTfAOZUqtesXWdDbhNJ4c9AHkIXuQapiZyms=
     template: 'Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_name}@%{branch} %{result} in %{duration}'
     if: branch = master
     on_pull_requests: false
