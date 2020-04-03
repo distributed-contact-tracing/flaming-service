@@ -1,8 +1,17 @@
 import * as functions from 'firebase-functions';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+export const fast = functions.https.onRequest((req, res) => {
+  res.send('Fast response.');
+});
+
+export const slow = functions.https.onRequest(async (req, res) => {
+  const slowResponse = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve('Slow response.'), 5000);
+    });
+  };
+
+  const responseText = await slowResponse();
+
+  res.send(responseText);
+});
