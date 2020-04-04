@@ -9,7 +9,9 @@ admin.initializeApp();
 export const hcpAuthorizeData = functions
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
+    console.log('Set CORS header...');
     res.set('Access-Control-Allow-Origin', '*');
+    console.log('Done.');
 
     if (
       req.method !== 'POST' ||
@@ -17,9 +19,11 @@ export const hcpAuthorizeData = functions
       !req.body.personalNumber ||
       !req.body.infectedAppId
     ) {
+      console.warn('Bad request', JSON.stringify(req));
       res.sendStatus(400);
       return;
     }
+    console.log('Request ok.');
 
     const client = new BankIdClient();
 
@@ -35,9 +39,11 @@ export const hcpAuthorizeData = functions
       });
 
       if (!bankIdResponse || !bankIdResponse.completionData) {
+        console.warn('BankID signing failed');
         res.sendStatus(500);
         return;
       }
+      console.log('BankID sign ok.');
 
       try {
         if (
@@ -45,6 +51,7 @@ export const hcpAuthorizeData = functions
             bankIdResponse.completionData.user.personalNumber,
           )) === false
         ) {
+          console.log('Personal number check failed.');
           res.sendStatus(403);
           return;
         }
@@ -52,6 +59,7 @@ export const hcpAuthorizeData = functions
         console.error(error);
         return;
       }
+      console.log('Personal number ok.');
 
       const document: HcpDataAuthorizationDocument = {
         type: 'hcp',
