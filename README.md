@@ -30,9 +30,9 @@ Collection for contact events from people who've got infected.
 
 #### Permissions
 
-| Get       | Create                                       | Update | Delete |
-| --------- | -------------------------------------------- | ------ | ------ |
-| All users | Users with an document in dataAuthorizations | Nobody | Nobody |
+| Get       | Create                                                                 | Update   | Delete   |
+| --------- | ---------------------------------------------------------------------- | -------- | -------- |
+| All users | Users with an document in dataAuthorizations, i.e. confirmed infection | _Nobody_ | _Nobody_ |
 
 ### dataAuthorizations
 
@@ -66,9 +66,9 @@ Authorizations of users that are allowed to share their data in the network. Iss
 
 #### Permissions
 
-| Get    | Create | Update | Delete |
-| ------ | ------ | ------ | ------ |
-| Nobody | Nobody | Nobody | Nobody |
+| Get      | Create   | Update   | Delete   |
+| -------- | -------- | -------- | -------- |
+| _Nobody_ | _Nobody_ | _Nobody_ | _Nobody_ |
 
 ### hcps
 
@@ -85,6 +85,6 @@ Licensed healthcare practitioners.
 
 #### Permissions
 
-| Get    | Create | Update | Delete |
-| ------ | ------ | ------ | ------ |
-| Nobody | Nobody | Nobody | Nobody |
+| Get      | Create   | Update   | Delete   |
+| -------- | -------- | -------- | -------- |
+| _Nobody_ | _Nobody_ | _Nobody_ | _Nobody_ |
