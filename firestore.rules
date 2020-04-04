@@ -4,6 +4,7 @@ service cloud.firestore {
 
     match /contactEvents/{document} {
     	allow read: if request.auth.uid != null;
+      allow create: if exists(/databases/$(database)/documents/dataAuthorizations/$(request.auth.uid))
     }
   }
 }
