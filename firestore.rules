@@ -6,5 +6,13 @@ service cloud.firestore {
     	allow read: if request.auth.uid != null;
       allow create: if exists(/databases/$(database)/documents/dataAuthorizations/$(request.auth.uid))
     }
+
+    match /hcps/{document} {
+      // deny all
+    }
+
+    match /dataAuthorizations/{document} {
+      // deny all
+    }
   }
 }
