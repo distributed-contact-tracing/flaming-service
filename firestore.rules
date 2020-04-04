@@ -8,11 +8,11 @@ service cloud.firestore {
     }
 
     match /hcps/{document} {
-      // deny all
+      allow read, write: if false; // Deny all
     }
 
     match /dataAuthorizations/{document} {
-      // deny all
+      allow read, write: if false; // Deny all
     }
   }
 }
