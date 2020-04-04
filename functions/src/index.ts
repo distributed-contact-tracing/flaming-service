@@ -104,10 +104,9 @@ export const hcpAuthorizeData = functions
       await admin
         .firestore()
         .collection('dataAuthorizations')
-        .add(document)
-        .then((documentReference) => {
-          console.log(`Added document with name: ${documentReference.id}`);
-        })
+        .doc(req.body.infectedAppId)
+        .set(document)
+        .then(() => console.log(`Document written`))
         .catch(console.error);
 
       res.sendStatus(200);
