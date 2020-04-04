@@ -9,6 +9,8 @@ admin.initializeApp();
 export const hcpAuthorizeData = functions
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+
     if (
       req.method !== 'POST' ||
       !req.body ||
