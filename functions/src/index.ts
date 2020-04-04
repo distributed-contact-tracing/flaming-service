@@ -9,21 +9,55 @@ admin.initializeApp();
 export const hcpAuthorizeData = functions
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
-    console.log('Set CORS header...');
-    res.set('Access-Control-Allow-Origin', '*');
-    console.log('Done.');
+    console.log('Set CORS headers and handle OPTIONS request');
+    try {
+      res.setHeader('Access-Control-Allow-Origin', '*');
 
-    if (
-      req.method !== 'POST' ||
-      !req.body ||
-      !req.body.personalNumber ||
-      !req.body.infectedAppId
-    ) {
-      console.warn('Bad request', JSON.stringify(req));
+      if (req.method === 'OPTIONS') {
+        console.log('OPTIONS method');
+        res.setHeader('Access-Control-Allow-Methods', 'POST');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Access-Control-Max-Age', '3600');
+        res.status(204).send('');
+        return;
+      }
+    } catch (error) {
+      console.error('Error in CORS region.');
+      console.error(error);
+    }
+
+    if (req.method !== 'POST') {
+      console.warn('Non-allowed method', req.method);
       res.sendStatus(400);
       return;
+    } else {
+      console.log('Method ok.');
     }
-    console.log('Request ok.');
+
+    if (!req.body) {
+      console.warn('Body not available');
+      res.sendStatus(400);
+      return;
+    } else {
+      console.log('Body ok.');
+    }
+
+    if (!req.body.personalNumber) {
+      console.warn('Missing personalNumber property');
+      console.warn(req.body.personalNumber);
+      res.sendStatus(400);
+      return;
+    } else {
+      console.log('Personal number present.');
+    }
+
+    if (!req.body.infectedAppId) {
+      console.warn('Missing infectedAppId property');
+      res.sendStatus(400);
+      return;
+    } else {
+      console.log('Infected App Id present.');
+    }
 
     const client = new BankIdClient();
 
