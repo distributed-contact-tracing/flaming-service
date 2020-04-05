@@ -86,3 +86,22 @@ Licensed healthcare practitioners.
 | Get      | Create   | Update   | Delete   |
 | -------- | -------- | -------- | -------- |
 | _Nobody_ | _Nobody_ | _Nobody_ | _Nobody_ |
+
+### deviceRegistrationTokens
+
+Device registration tokens.
+
+#### Document Structure
+
+```js
+{
+  _id: string,    // User ID
+  token: string
+}
+```
+
+#### Permissions
+
+| Get      | Create                      | Update   | Delete   |
+| -------- | --------------------------- | -------- | -------- |
+| _Nobody_ | Anyone, if `_id = auth.uid` | _Nobody_ | _Nobody_ |
