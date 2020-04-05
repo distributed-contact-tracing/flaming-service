@@ -1,14 +1,13 @@
 # :fire: flaming-server [![Build Status](https://travis-ci.org/distributed-contact-tracing/flaming-service.svg?branch=master)](https://travis-ci.org/distributed-contact-tracing/flaming-service)
 
-Firebase backend for Distributed Contact Tracing
+Firebase backend for My Shared Air
 
 ## Install and emulate locally
 
 Needs Node 10 to work.
 
 ```
-yarn
-
+(cd function && yarn && yarn build)
 firebase emulators:start
 ```
 
@@ -28,9 +27,9 @@ Collection for contact events from people who've got infected.
 
 #### Permissions
 
-| Get       | Create                                                                 | Update   | Delete   |
-| --------- | ---------------------------------------------------------------------- | -------- | -------- |
-| All users | Users with an document in dataAuthorizations, i.e. confirmed infection | _Nobody_ | _Nobody_ |
+| Get    | Create                                                                  | Update   | Delete   |
+| ------ | ----------------------------------------------------------------------- | -------- | -------- |
+| Anyone | Anyone with an document in dataAuthorizations, i.e. confirmed infection | _Nobody_ | _Nobody_ |
 
 ### dataAuthorizations
 
