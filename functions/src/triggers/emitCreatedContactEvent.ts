@@ -42,7 +42,7 @@ export const emitCreatedContactEvent = functions
         headers: {
           'apns-push-type': 'background',
           'apns-priority': '5',
-          'apns-topic': '',
+          'apns-topic': 'com.dist-contact-tracing.app.MySharedAir',
         },
         payload: {
           aps: {
