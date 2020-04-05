@@ -6,6 +6,9 @@ import { HcpDataAuthorizationDocument } from './typings';
 
 admin.initializeApp();
 
+export { emitCreatedContactEvent } from './triggers/emitCreatedContactEvent';
+export { notifyInfectedUser } from './triggers/notifyInfectedUser';
+
 export const hcpAuthorizeData = functions
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
