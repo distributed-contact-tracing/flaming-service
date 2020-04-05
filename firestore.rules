@@ -3,6 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     match /contactEvents/{document} {
+      allow update, delete: if false;
     	allow read: if request.auth.uid != null;
       allow create: if exists(/databases/$(database)/documents/dataAuthorizations/$(request.auth.uid))
     }
@@ -16,6 +17,7 @@ service cloud.firestore {
     }
 
     match /deviceRegistrationTokens/{document} {
+      allow read, update, delete: if false;
       allow create: if request.auth.uid == document;
     }
 
