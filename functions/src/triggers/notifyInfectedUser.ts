@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-export const notifyInfectedUser = functions.firestore
-  .document('dataAuthorizations/{doc}')
+export const notifyInfectedUser = functions
+  .region('europe-west1')
+  .firestore.document('dataAuthorizations/{doc}')
   .onCreate(async (snapshot, context) => {
     const doc = snapshot.data();
 

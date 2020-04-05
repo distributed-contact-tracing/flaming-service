@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-export const emitCreatedContactEvent = functions.firestore
-  .document('contactEvents/{event}')
+export const emitCreatedContactEvent = functions
+  .region('europe-west1')
+  .firestore.document('contactEvents/{event}')
   .onCreate(async (snap, context) => {
     const doc = snap.data();
 
@@ -22,6 +23,7 @@ export const emitCreatedContactEvent = functions.firestore
       data: {
         token: doc.token,
       },
+      content_available: true,
       topic,
     };
 
