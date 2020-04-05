@@ -14,5 +14,10 @@ service cloud.firestore {
     match /dataAuthorizations/{document} {
       allow read, write: if false; // Deny all
     }
+
+    match /deviceRegistrationTokens/{document} {
+      allow create: if request.auth.uid == document;
+    }
+
   }
 }
