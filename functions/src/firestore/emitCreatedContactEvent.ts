@@ -19,8 +19,10 @@ export const emitCreatedContactEvent = functions
 
     const topic = 'region'; // Catch-all region for now
 
+    /* Legacy data */
     const payload = {
       data: {
+        function: 'sendToTopic',
         token: doc.token,
       },
     };
@@ -30,11 +32,38 @@ export const emitCreatedContactEvent = functions
       priority: 'high',
     };
 
+    /* New data */
+    const message = {
+      data: {
+        function: 'send',
+        token: doc.token,
+      },
+      apns: {
+        headers: {
+          'apns-push-type': 'background',
+          'apns-priority': '5',
+          'apns-topic': 'com.dist-contact-tracing.app.MySharedAir',
+        },
+        payload: {
+          aps: {
+            contentAvailable: true,
+          },
+        },
+      },
+      topic,
+    };
+
     try {
-      const response = await admin
+      const response = await admin.messaging().send(message);
+      console.log('Successfully sent message using send():', response);
+
+      const legacyResponse = await admin
         .messaging()
         .sendToTopic(topic, payload, options);
-      console.log('Successfully sent message:', response);
+      console.log(
+        'Successfully sent message using legacy sendToTopic():',
+        legacyResponse,
+      );
     } catch (error) {
       console.error('Error sending message:', error);
       return;
