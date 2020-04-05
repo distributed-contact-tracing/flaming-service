@@ -18,7 +18,7 @@ export const notifyInfectedUser = functions
     }
 
     const deviceDoc = await admin.firestore().collection('deviceRegistrationToken').doc(doc.infectedAppId).get();
-    const fcmToken = deviceDoc['fcmToken']
+    const fcmToken = deviceDoc.data().fcmToken
     
     if (!fcmToken) {
       console.error('Missing FCM token');
