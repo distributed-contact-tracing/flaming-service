@@ -7,8 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/distributed-contact-tracing/flaming-service.git"
   },
-  "author": "",
-  "license": "AGPL-3.0-only",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/distributed-contact-tracing/flaming-service/issues"
   },
