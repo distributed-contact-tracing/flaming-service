@@ -19,19 +19,24 @@ export const emitCreatedContactEvent = functions
 
     const topic = 'region'; // Catch-all region for now
 
-    const message = {
+    const payload = {
       data: {
         token: doc.token,
       },
-      content_available: true,
-      topic,
+    };
+
+    const options = {
+      contentAvailable: true,
+      priority: 'high',
     };
 
     try {
-      const response = await admin.messaging().send(message);
+      const response = await admin
+        .messaging()
+        .sendToTopic(topic, payload, options);
       console.log('Successfully sent message:', response);
     } catch (error) {
-      console.error('Error sending message:', error, message);
+      console.error('Error sending message:', error);
       return;
     }
   });
