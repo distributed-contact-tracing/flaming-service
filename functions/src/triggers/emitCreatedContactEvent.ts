@@ -24,6 +24,7 @@ export const emitCreatedContactEvent = functions
         token: doc.token,
       },
       content_available: true,
+      priority: 'high',
       topic,
     };
 
