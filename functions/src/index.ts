@@ -117,33 +117,34 @@ export const hcpAuthorizeData = functions
   });
 
 export const distributeContactEvent = functions.firestore
-  .document('contactEvents')
-  .onCreate((snap, context) => {
-    // Get an object representing the document
-    // e.g. {'name': 'Marie', 'age': 66}
-    var newEvent = snap.data();
-    var id = newEvent._id; // Not sure how to properly typecheck
-    if (id) {
-      // A topic is needed for messages
-      // for now all subscribe to "region"
-      var region = 'region';
+  .document('contactEvents/{event}')
+  .onCreate(async (snap, context) => {
+    const doc = snap.data();
 
-      var message = {
-        data: { _id: id },
-        topic: region,
-      };
+    if (!doc) {
+      console.error('No doc reference.');
+      return;
+    }
 
-      // Unable to begug since I have no Oauth2 token
-      // at least it compiles
-      admin
-        .messaging()
-        .send(message)
-        .then((response) => {
-          // Response is a message ID string.
-          console.log('Successfully sent message:', response);
-        })
-        .catch((error) => {
-          console.log('Error sending message:', error);
-        });
+    if (!doc.token) {
+      console.error("Document doesn't have a token.");
+      return;
+    }
+
+    const topic = 'region'; // Catch-all region for now
+
+    const message = {
+      data: {
+        token: doc.token,
+      },
+      topic,
+    };
+
+    try {
+      const response = await admin.messaging().send(message);
+      console.log('Successfully sent message:', response);
+    } catch (error) {
+      console.error('Error sending message:', error, message);
+      return;
     }
   });
