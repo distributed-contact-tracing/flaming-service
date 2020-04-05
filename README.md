@@ -22,9 +22,7 @@ Collection for contact events from people who've got infected.
 
 ```js
 {
-  _id: string,      // Id from Bluetooth handshake
-  distance: number, // Distance in meters
-  duration: number, // Duration in seconds
+  token: string,      // Id from Bluetooth handshake
 }
 ```
 
