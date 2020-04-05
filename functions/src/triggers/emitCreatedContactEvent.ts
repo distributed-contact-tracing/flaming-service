@@ -23,6 +23,7 @@ export const emitCreatedContactEvent = functions
       data: {
         token: doc.token,
       },
+      content_available: true,
       topic,
     };
 
