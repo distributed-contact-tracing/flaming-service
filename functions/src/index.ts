@@ -115,3 +115,36 @@ export const hcpAuthorizeData = functions
       res.sendStatus(500);
     }
   });
+
+export const distributeContactEvent = functions.firestore
+    .document('contactEvents')
+    .onCreate((snap, context) => {
+      // Get an object representing the document
+      // e.g. {'name': 'Marie', 'age': 66}
+      var newEvent = snap.data();
+      var id = newEvent._id; // Not sure how to properly typecheck
+      if (id) {
+
+        // A topic is needed for messages 
+        // for now all subscribe to "region"
+        var region = "region";
+
+        var message = {
+            data: {_id: id}, 
+            topic: region,
+        };
+
+
+        // Unable to begug since I have no Oauth2 token 
+        // at least it compiles
+        admin.messaging().send(message)
+                .then((response) => {
+                  // Response is a message ID string.
+                  console.log('Successfully sent message:', response);
+                })
+                .catch((error) => {
+                    console.log('Error sending message:', error);
+                });
+      };
+    });
+
