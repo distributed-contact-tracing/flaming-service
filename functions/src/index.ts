@@ -7,6 +7,8 @@ import { HcpDataAuthorizationDocument } from './typings';
 admin.initializeApp();
 
 export { emitCreatedContactEvent } from './triggers/emitCreatedContactEvent';
+export { addContactEvent } from './add';
+
 export const hcpAuthorizeData = functions
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
@@ -114,38 +116,5 @@ export const hcpAuthorizeData = functions
     } catch (error) {
       console.error(error.name, error.message);
       res.sendStatus(500);
-    }
-  });
-
-export const distributeContactEvent = functions.firestore
-  .document('contactEvents/{event}')
-  .onCreate(async (snap, context) => {
-    const doc = snap.data();
-
-    if (!doc) {
-      console.error('No doc reference.');
-      return;
-    }
-
-    if (!doc.token) {
-      console.error("Document doesn't have a token.");
-      return;
-    }
-
-    const topic = 'region'; // Catch-all region for now
-
-    const message = {
-      data: {
-        token: doc.token,
-      },
-      topic,
-    };
-
-    try {
-      const response = await admin.messaging().send(message);
-      console.log('Successfully sent message:', response);
-    } catch (error) {
-      console.error('Error sending message:', error, message);
-      return;
     }
   });
