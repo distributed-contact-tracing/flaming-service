@@ -17,12 +17,20 @@ export const notifyInfectedUser = functions
       return;
     }
 
+    const deviceDoc = await admin.firestore().collection('deviceRegistrationToken').doc(doc.infectedAppId).get();
+    const fcmToken = deviceDoc?.data()?.fcmToken;
+    
+    if (!fcmToken) {
+      console.error('Missing FCM token');
+      return;
+    }
+
     const message = {
       notification: {
         title: 'New COVID-19 test result',
         body: `You've been tested positive for COVID-19. Open the app to share your data.`,
       },
-      token: doc.infectedAppId,
+      token: fcmToken,
     };
 
     try {
