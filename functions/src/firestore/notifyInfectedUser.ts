@@ -17,7 +17,7 @@ export const notifyInfectedUser = functions
       return;
     }
 
-    const deviceDoc = await admin.firestore().collection('deviceRegistrationToken').doc(doc.infectedAppId).get();
+    const deviceDoc = await admin.firestore().collection('deviceRegistrationTokens').doc(doc.infectedAppId).get();
     const fcmToken = deviceDoc?.data()?.fcmToken;
     
     if (!fcmToken) {
